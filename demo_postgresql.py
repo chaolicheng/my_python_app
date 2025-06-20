@@ -27,5 +27,21 @@ def index():
     db.create_all()
     return "資料庫連線成功"
 
+@app.route("/insert")
+def insert():
+    student = Students("王大明", "0912345678", "台北市信義路101號", "user1@email.com")
+    db.session.add(student)
+    db.session.commit()
+    return "新增一筆紀錄成功"
+
+@app.route("/insertAll")
+def insertAll():
+    student1 = Students("王小明", "0987654321", "台北市南京東路101號", "user2@email.com")
+    student2 = Students("王中明", "0936258147", "台北市復興北路101號", "user3@email.com")
+    student = (student1, student2)
+    db.session.add_all(student)
+    db.session.commit()
+    return "新增多筆紀錄成功"
+
 if __name__ == "__main__":
     app.run()
